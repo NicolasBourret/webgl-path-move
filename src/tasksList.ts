@@ -2,7 +2,7 @@ import { LitElement, css, html } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
 import { tasks } from './datas/tasks';
-import { taskHeigth, taskWidthStyle } from './utils';
+import { taskHeight, taskWidthStyle } from './utils';
 import { taskListContainer } from './store/tasksListContainer';
 
 @customElement('tasks-list')
@@ -25,7 +25,7 @@ export class TasksList extends LitElement {
 
       .task {
          width: ${taskWidthStyle};
-         height: ${taskHeigth};
+         height: ${taskHeight};
          box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
          box-sizing: border-box;
          border-radius: 10px;
@@ -45,12 +45,12 @@ export class TasksList extends LitElement {
 
    firstUpdated() {
       const width = this.taskListContainer.getBoundingClientRect().width;
-      const heigth = this.taskListContainer.getBoundingClientRect().height;
-      taskListContainer({ heigth, width });
+      const height = this.taskListContainer.getBoundingClientRect().height;
+      taskListContainer({ height, width });
       const x = this.taskListContainer.getBoundingClientRect().x;
       const y = this.taskListContainer.getBoundingClientRect().y;
 
-      console.log(heigth, width, x, y);
+      console.log(height, width, x, y);
    }
 
    render() {

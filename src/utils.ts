@@ -12,7 +12,7 @@ export const taskWidth = 400;
 export const taskWidthStyle = css`
    ${taskWidth}px
 `;
-export const taskHeigth = 120;
-export const taskHeigthStyle = css`
-   ${taskHeigth}px
+export const taskHeight = 120;
+export const taskHeightStyle = css`
+   ${taskHeight}px
 `;

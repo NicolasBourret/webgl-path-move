@@ -9,13 +9,7 @@ export class Canvas extends LitElement {
    canvas!: HTMLCanvasElement;
 
    @state()
-   canvasDimension = {
-      width: 0,
-      heigth: 0,
-   };
-
-   @state()
-   taskListContainer;
+   canvasDimension;
 
    static styles = css`
       #canvas {
@@ -25,21 +19,20 @@ export class Canvas extends LitElement {
 
    connectedCallback() {
       super.connectedCallback();
-      this.taskListContainer = taskListContainer;
+      this.canvasDimension = taskListContainer;
    }
 
+   // move this in updated
    firstUpdated() {
       const context = this.canvas.getContext('2d');
-      this.canvasDimension = {
-         width: 300,
-         heigth: 150,
-      };
       const canvasXPosition = this.canvas.getBoundingClientRect().x;
       const canvasYPosition = this.canvas.getBoundingClientRect().y;
 
+      console.log(this.canvasDimension().height);
+
       let start = {
          x: 0,
-         y: 150,
+         y: this.canvasDimension().height,
       };
       let cp1 = {
          x: 300,
@@ -50,9 +43,13 @@ export class Canvas extends LitElement {
       this.canvas.addEventListener('mousemove', (e) => {
          const cursorInCanvasX = e.clientX - canvasXPosition;
          const cursorInCanvasY = e.clientY - canvasYPosition;
-         console.log(cursorInCanvasX, cursorInCanvasY);
 
-         context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+         context.clearRect(
+            0,
+            0,
+            this.canvasDimension().width,
+            this.canvasDimension().height
+         );
 
          drawPoints(
             context,
@@ -77,10 +74,11 @@ export class Canvas extends LitElement {
    }
 
    updated() {
+      console.log(this.canvasDimension().height);
       const context = this.canvas.getContext('2d');
       let start = {
          x: 0,
-         y: 150,
+         y: this.canvasDimension().height,
       };
       let cp1 = {
          x: 300,
@@ -101,12 +99,11 @@ export class Canvas extends LitElement {
    }
 
    render() {
-      console.log(this.taskListContainer());
       return html`
          <canvas
             id="canvas"
-            width=${this.canvasDimension.width + 10}
-            height=${this.canvasDimension.heigth + 10}
+            width=${this.canvasDimension().width}
+            height=${this.canvasDimension().height}
          ></canvas>
       `;
    }
